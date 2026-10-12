@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>APEX // Predictive Race Engineer</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><div class="brand-mark">A</div><div><strong>APEX<span>//</span></strong><small>RACE INTELLIGENCE</small></div></div>
+    <div class="side-label">WORKSPACE</div>
+    <button class="nav active" data-view="overview"><span>◫</span> Overview</button>
+    <button class="nav" data-view="simulator"><span>⌁</span> Race Simulator</button>
+    <button class="nav" data-view="telemetry"><span>⌁</span> Live Telemetry <i class="nav-dot"></i></button>
+    <button class="nav" data-view="sessions"><span>▤</span> Saved Sessions</button>
+    <div class="sidebar-bottom"><div class="live-chip"><span class="pulse"></span> LOCAL ENGINE</div><small>Predictive Analytics · CSE3141</small><small>Build 1.0.0 / Educational</small></div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><div class="eyebrow">RACE OPERATIONS / <span id="section-label">OVERVIEW</span></div><h1 id="page-title">Performance overview</h1></div><div class="top-actions"><span class="local-tag"><span class="green-dot"></span> LOCAL SYSTEM</span><div class="avatar">RE</div></div></header>
+    <section class="view active" id="view-overview">
+      <div class="hero"><div class="hero-copy"><div class="hero-kicker"><span class="red-line"></span> PREDICTIVE RACE ENGINEER</div><h2>Every lap tells<br>you <em>something.</em></h2><p>Turn race variables into actionable pace estimates, strategy comparisons, and telemetry insights.</p><button class="primary" data-go="simulator">Launch race simulator <span>↗</span></button></div><div class="hero-graphic"><div class="track-ring ring-one"></div><div class="track-ring ring-two"></div><div class="hero-number">24</div><div class="hero-caption">DATA-DRIVEN<br>RACE INTELLIGENCE</div><div class="hero-cross">+</div></div></div>
+      <div class="section-head"><div><div class="eyebrow">SYSTEM SNAPSHOT</div><h3>At a glance</h3></div><span class="muted" id="updated-at">LOCAL SESSION</span></div>
+      <div class="metric-grid">
+        <article class="metric-card"><div class="metric-top"><span>MODEL STATUS</span><span class="metric-icon">◈</span></div><div class="metric-value" id="model-status">DEMO</div><div class="metric-foot" id="model-subtitle">Synthetic fallback active</div></article>
+        <article class="metric-card"><div class="metric-top"><span>TELEMETRY LINK</span><span class="metric-icon">⌁</span></div><div class="metric-value" id="telemetry-status">OFFLINE</div><div class="metric-foot" id="telemetry-subtitle">UDP · Port 20777</div></article>
+        <article class="metric-card"><div class="metric-top"><span>SAVED SESSIONS</span><span class="metric-icon">▤</span></div><div class="metric-value" id="session-count">00</div><div class="metric-foot">CSV files available locally</div></article>
+        <article class="metric-card"><div class="metric-top"><span>ANALYTICS MODE</span><span class="metric-icon">⌘</span></div><div class="metric-value">LOCAL</div><div class="metric-foot">No cloud or paid API required</div></article>
+      </div>
+      <div class="content-grid">
+        <article class="panel chart-panel"><div class="panel-head"><div><div class="eyebrow">PACE MODEL</div><h3>What-if lap pace</h3></div><span class="tag">ILLUSTRATIVE</span></div><div class="chart-wrap"><canvas id="overviewChart"></canvas></div><p class="panel-note">Illustrative curve generated for the dashboard; not a recorded race session.</p></article>
+        <article class="panel quick-panel"><div class="eyebrow">QUICK ACCESS</div><h3>Race tools</h3><button class="quick-link" data-go="simulator"><span class="quick-icon">01</span><span><b>Lap-time prediction</b><small>Adjust track, tyres, fuel & conditions</small></span><span>↗</span></button><button class="quick-link" data-go="simulator"><span class="quick-icon">02</span><span><b>Strategy comparison</b><small>Compare stint plans and pit-loss estimates</small></span><span>↗</span></button><button class="quick-link" data-go="telemetry"><span class="quick-icon">03</span><span><b>UDP telemetry</b><small>Connect to F1 24 on this PC</small></span><span>↗</span></button><button class="quick-link" data-go="sessions"><span class="quick-icon">04</span><span><b>Session explorer</b><small>Upload or generate a CSV session</small></span><span>↗</span></button></article>
+      </div>
+      <div class="notice"><span>i</span><div><b>Model transparency</b><p id="model-notice">Until a real lap-level dataset is added and trained, predictions use a synthetic demo model. Treat them as illustrative, not official Formula 1 forecasts.</p></div></div>
+    </section>
+    <section class="view" id="view-simulator">
+      <div class="page-intro"><div><div class="eyebrow">PREDICTIVE MODE / 01</div><h2>Race simulator</h2><p>Configure the conditions. Estimate pace. Compare race plans.</p></div><button class="secondary" id="train-model">↻ Train model from local CSVs</button></div>
+      <div class="sim-grid">
+        <article class="panel form-panel"><div class="panel-head"><div><div class="eyebrow">INPUT PARAMETERS</div><h3>Race conditions</h3></div><span class="step">01 / 02</span></div>
+          <form id="predict-form">
+            <div class="field-grid"><label>Track / circuit<select name="track"><option>Bahrain</option><option>Monza</option><option selected>Silverstone</option><option>Spa</option><option>Suzuka</option><option>Monaco</option><option>Austria</option></select></label><label>Tyre compound<select name="compound"><option>Soft</option><option selected>Medium</option><option>Hard</option></select></label>
+            <label>Tyre age <span class="unit">(laps)</span><input type="number" name="tyre_age" min="0" max="80" value="5"></label><label>Fuel load <span class="unit">(kg)</span><input type="number" name="fuel_kg" min="0" max="110" step=".5" value="45"></label>
+            <label>Air temperature <span class="unit">(°C)</span><input type="number" name="air_temp_c" min="-5" max="50" value="25"></label><label>Track temperature <span class="unit">(°C)</span><input type="number" name="track_temp_c" min="-5" max="70" value="32"></label>
+            <label>Weather<select name="rainfall"><option value="0">Dry</option><option value="1">Wet / rain</option></select></label><label>Traffic intensity <span class="unit">(0–1)</span><input type="number" name="traffic" min="0" max="1" step=".05" value=".2"></label>
+            <label>Driver level <span class="unit">(0–1)</span><input type="number" name="driver_level" min="0" max="1" step=".05" value=".7"></label><label>Setup downforce <span class="unit">(0–1)</span><input type="number" name="setup_downforce" min="0" max="1" step=".05" value=".5"></label></div>
+            <button class="primary full" type="submit" id="predict-button">Predict lap time <span>→</span></button>
+          </form><div id="predict-error" class="error hidden"></div>
+        </article>
+        <div class="result-column"><article class="panel prediction-card"><div class="panel-head"><div><div class="eyebrow">MODEL OUTPUT</div><h3>Predicted lap time</h3></div><span class="tag red-tag">ESTIMATE</span></div><div class="prediction-time" id="pred-time">—:——.———</div><div class="prediction-meta"><span>MODEL</span><b id="pred-model">Awaiting inputs</b></div><div class="prediction-meta"><span>MAE / VALIDATION</span><b id="pred-mae">Not available</b></div><div class="prediction-bar"><span></span></div><p class="panel-note" id="pred-note">Run a prediction to see the model output and assumptions.</p></article>
+          <article class="panel strategy-panel"><div class="panel-head"><div><div class="eyebrow">RACE STRATEGY</div><h3>Strategy lab</h3></div><span class="tag">HEURISTIC</span></div><div class="strategy-controls"><label>Race distance <select id="race-laps"><option>20</option><option selected>52</option><option>57</option><option>70</option></select> laps</label><button class="secondary" id="compare-strategies">Compare strategies</button></div><div id="strategy-results" class="strategy-results"><div class="empty-state">Run the strategy comparison to rank illustrative pit plans.</div></div><div id="strategy-warning" class="panel-note"></div></article></div>
+      </div>
+      <div class="notice"><span>!</span><div><b>Scientific limitation</b><p>Predictions depend on dataset quality. The built-in synthetic fallback is only for testing the app. Strategy ranking uses simplified tyre degradation and a fixed 22.5-second pit loss.</p></div></div>
+    </section>
+    <section class="view" id="view-telemetry">
+      <div class="page-intro"><div><div class="eyebrow">REAL-TIME INPUT / 02</div><h2>Live telemetry</h2><p>Receive F1 24 PC UDP telemetry over your local network interface.</p></div><div class="status-pill" id="udp-pill"><span class="status-dot"></span> LISTENER STOPPED</div></div>
+      <div class="telemetry-toolbar panel"><div><div class="eyebrow">UDP RECEIVER</div><b>F1 24 · Telemetry packet</b><small>Default port 20777 · Game format 2024</small></div><div class="udp-controls"><label>Port <input id="udp-port" type="number" value="20777" min="1024" max="65535"></label><button class="primary" id="start-udp">Start listener</button><button class="secondary" id="stop-udp" disabled>Stop</button></div></div>
+      <div class="telemetry-grid"><article class="panel speed-panel"><div class="eyebrow">VEHICLE SPEED</div><div class="speed-value"><span id="speed-value">—</span><small>KM/H</small></div><div class="speed-track"><span id="speed-fill"></span></div><div class="speed-footer"><span>0</span><span>360 KM/H</span></div></article><article class="panel gear-panel"><div class="eyebrow">GEAR</div><div class="gear-value" id="gear-value">—</div><div class="muted">CURRENT GEAR</div></article><article class="panel rpm-panel"><div class="eyebrow">ENGINE RPM</div><div class="rpm-value" id="rpm-value">—</div><div class="rpm-track"><span id="rpm-fill"></span></div><div class="muted">UP TO 12,500 RPM SCALE</div></article></div>
+      <div class="content-grid"><article class="panel"><div class="panel-head"><div><div class="eyebrow">DRIVER INPUTS</div><h3>Throttle & brake</h3></div><span class="tag">LIVE</span></div><div class="chart-wrap"><canvas id="inputChart"></canvas></div></article><article class="panel"><div class="panel-head"><div><div class="eyebrow">STEERING</div><h3>Steering input</h3></div><span class="tag">LIVE</span></div><div class="chart-wrap"><canvas id="steeringChart"></canvas></div></article></div>
+      <div class="notice"><span>i</span><div><b>Connection checklist</b><p>In F1 24, enable UDP telemetry, use telemetry format 2024, port 20777, and send to 127.0.0.1 if the game runs on this PC. This listener currently decodes Car Telemetry packets only. No packets received? Check game settings and Windows Firewall.</p></div></div>
+    </section>
+    <section class="view" id="view-sessions">
+      <div class="page-intro"><div><div class="eyebrow">DATA EXPLORER / 03</div><h2>Saved sessions</h2><p>Inspect local CSV telemetry and lap datasets. Your files stay on this computer.</p></div><button class="secondary" id="generate-demo">＋ Generate demo session</button></div>
+      <div class="session-grid"><article class="panel upload-panel"><div class="upload-symbol">↑</div><h3>Import a CSV session</h3><p>Upload telemetry, lap records, or a prepared dataset for local analysis.</p><form id="upload-form"><label class="file-picker">Choose CSV file<input type="file" id="csv-file" name="file" accept=".csv" required></label><button class="primary" type="submit">Upload & analyse</button></form><small>CSV only · Max 40 MB · Stored in data/sessions/</small></article><article class="panel session-list-panel"><div class="panel-head"><div><div class="eyebrow">LOCAL LIBRARY</div><h3>Available files</h3></div><button class="icon-button" id="refresh-sessions" title="Refresh">↻</button></div><div id="session-list" class="session-list"><div class="empty-state">No session files loaded.</div></div></article></div>
+      <article class="panel session-analysis"><div class="panel-head"><div><div class="eyebrow">SESSION INSPECTOR</div><h3 id="session-title">Select a session</h3></div><button class="secondary" id="export-session" disabled>↓ Export CSV</button></div><div id="session-summary" class="summary-grid"></div><div class="table-wrap"><table><thead id="preview-head"><tr><th>Preview</th></tr></thead><tbody id="preview-body"><tr><td class="muted">Choose a file to inspect its first rows.</td></tr></tbody></table></div></article>
+    </section>
+    <footer><span>APEX // PREDICTIVE RACE ENGINEER</span><span>LOCAL-FIRST · EDUCATIONAL USE ONLY</span></footer>
+  </main>
+</div>
+<div class="toast" id="toast"></div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body></html>
