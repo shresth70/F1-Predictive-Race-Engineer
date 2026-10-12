@@ -78,3 +78,13 @@ Training uses a RandomForestRegressor with a held-out 20% random test split. Thi
 5. Start the app with `python app.py`, open `http://127.0.0.1:5000`, go to Race Simulator, and click **Train model from local CSVs**.
 
 Important: the archive does not contain per-lap tyre compound, fuel load, weather, or setup for these records. The preparation script uses explicit placeholders for those missing inputs. Treat this as a historical baseline, not a model that has learned those effects. Do not claim the placeholders are measured data.
+
+## Dataset Credits
+
+This project uses historical Formula 1 data from the Kaggle dataset:
+
+- **Dataset:** [Formula 1](https://www.kaggle.com/datasets/melissamonfared/formula-1)
+- **Uploader:** melissamonfared
+- **Usage:** Lap-time prediction and historical race-strategy analysis.
+
+The dataset is used for educational and academic purposes. All credit for the original dataset belongs to its respective creator and source. The data has been processed for this project's analysis and machine-learning experiments.
