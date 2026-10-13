@@ -1,5 +1,4 @@
 # F1 24 Predictive Race Engineer
-**Predictive Analytics (CSE3141) — local university project**
 
 A Flask + vanilla HTML/CSS/JavaScript dashboard for lap-time estimates, illustrative pit-strategy comparison, saved CSV session analysis, and optional F1 24 UDP telemetry. No paid API, cloud service, Docker, or GPU is required.
 
